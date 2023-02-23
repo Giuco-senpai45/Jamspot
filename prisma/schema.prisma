@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model followers {
+  id                                      Int      @id(map: "Follower_pkey") @default(autoincrement())
+  profileId                               String
+  followerId                              String
+  profiles_followers_followerIdToprofiles profiles @relation("followers_followerIdToprofiles", fields: [followerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profiles_followers_profileIdToprofiles  profiles @relation("followers_profileIdToprofiles", fields: [profileId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([profileId, followerId], map: "Follower_profileId_followerId_key")
+}
+
+model profiles {
+  id                                       String      @id(map: "Profile_pkey")
+  username                                 String?
+  avatarUrl                                String?
+  updated_at                               DateTime?
+  followers_followers_followerIdToprofiles followers[] @relation("followers_followerIdToprofiles")
+  followers_followers_profileIdToprofiles  followers[] @relation("followers_profileIdToprofiles")
+}
