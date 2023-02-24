@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './(users)/$types'
+	import type { PageData } from './$types'
 	import logo from '$lib/imgs/js.svg';
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import { supabaseClient } from '$lib/supabase';
