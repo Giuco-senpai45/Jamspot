@@ -10,10 +10,10 @@
 
 <style>
 	.wrapper {
-		@apply backdrop-blur-sm rounded-2xl shadow-2xl mx-20 my-40 md:mx-40 lg:mx-64 py-20
+		@apply h-screen rounded-2xl shadow-2xl mx-20 mt-20 md:mx-40 lg:mx-64 py-20
 	}
 	.login-form {
-		@apply card-body space-y-10
+		@apply card-body backdrop-blur-sm py-20 px-10 space-y-10
 	}
 
 	.login-input {

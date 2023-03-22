@@ -12,7 +12,7 @@
 
 <style>
 	.wrapper {
-		@apply backdrop-blur-sm rounded-2xl shadow-2xl mx-20 my-40 md:mx-40 lg:mx-64 py-16
+		@apply backdrop-blur-sm rounded-2xl shadow-2xl mx-20 my-20 md:mx-40 lg:mx-64 py-16
 	}
 	.register-wrapper {
 		@apply sm:px-20 md:px-72 px-96 xl:mx-40 py-20;

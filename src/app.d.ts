@@ -16,8 +16,10 @@ declare global {
 		}
 		// interface Platform {}
 	}
-	namespace Global {
-		let prisma: PrismaClient;
+	declare namespace NodeJS {
+		interface Global {
+			spotConfig: any;
+		}
 	}
 }
 

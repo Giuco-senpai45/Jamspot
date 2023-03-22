@@ -8,20 +8,21 @@ datasource db {
 }
 
 model followers {
-  id                                      Int      @id(map: "Follower_pkey") @default(autoincrement())
-  profileId                               String
-  followerId                              String
-  profiles_followers_followerIdToprofiles profiles @relation("followers_followerIdToprofiles", fields: [followerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  profiles_followers_profileIdToprofiles  profiles @relation("followers_profileIdToprofiles", fields: [profileId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profileId                               String    @db.Uuid
+  followerId                              String    @db.Uuid
+  created_at                              DateTime? @default(now()) @db.Timestamptz(6)
+  profiles_followers_followerIdToprofiles profiles  @relation("followers_followerIdToprofiles", fields: [followerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profiles_followers_profileIdToprofiles  profiles  @relation("followers_profileIdToprofiles", fields: [profileId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@unique([profileId, followerId], map: "Follower_profileId_followerId_key")
+  @@id([profileId, followerId], map: "Follower_pkey")
 }
 
 model profiles {
-  id                                       String      @id(map: "Profile_pkey")
-  username                                 String?
-  avatarUrl                                String?
-  updated_at                               DateTime?
+  username                                 String?     @default("")
+  avatarUrl                                String?     @default("")
+  isNew                                    Boolean?    @default(false)
+  created_at                               DateTime?   @default(now()) @db.Timestamptz(6)
+  id                                       String      @id(map: "Profile_pkey") @db.Uuid
   followers_followers_followerIdToprofiles followers[] @relation("followers_followerIdToprofiles")
   followers_followers_profileIdToprofiles  followers[] @relation("followers_profileIdToprofiles")
 }

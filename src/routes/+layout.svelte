@@ -16,14 +16,13 @@
 			subscription.unsubscribe();
 		};
 	});
-
 </script>
 
 <svelte:head>
 	<title>JamSpot</title>
 </svelte:head>
 
-<main class="w-screen h-screen bg-[url('$lib/imgs/room.jpg')] bg-cover">
+<main class="w-full h-full bg-[url('$lib/imgs/room.jpg')] bg-cover">
 	<Navbar />
 
 	<slot />
