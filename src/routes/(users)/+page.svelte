@@ -1,20 +1,23 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import logo from '$lib/imgs/js.svg';
-	import { supabaseClient } from '$lib/supabase';
-	import { goto } from '$app/navigation';
+	import Coldstart from '$lib/components/coldstart/Coldstart.svelte';
 
-	export let data: PageData; 
-
-	$: if (data.profile?.isNew) {
-		goto('/coldstart/1');
-	}
+	export let data: PageData;
 </script>
 
 
 <main class="h-screen">
 	{#if data.session}
-		<p>Saluut</p>
+		{#if data.profile}
+			{#if data.profile.isNew}
+				<Coldstart />
+			{:else}
+				<p>You're not new here</p>
+			{/if}
+		{:else}
+			<progress class="progress w-56"></progress>
+		{/if}
 	{:else}
 		<div class="flex justify-center text-center py-10">
 			<img src={logo} class="w-40" alt="JamSpot logo" />
