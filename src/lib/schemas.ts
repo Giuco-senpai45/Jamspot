@@ -6,5 +6,5 @@ export const updateProfileSchema = zfd.formData({
         .string()
 		.max(30, { message: 'Username must be less than 30 characters' })
 		.optional(),
-	avatarUrl: zfd.file().optional(),
+	avatarUrl: z.string().optional(),//zfd.file().optional(),
 })

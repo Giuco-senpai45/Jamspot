@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import type { LayoutData } from './$types';
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import { supabaseClient } from '$lib/supabase';
 	import Navbar from '$lib/components/Navbar.svelte';
 
+	
+	export let data: LayoutData;
 	onMount(() => {
 		const {
 			data: { subscription }
@@ -22,8 +25,8 @@
 	<title>JamSpot</title>
 </svelte:head>
 
-<main class="w-full h-full bg-[url('$lib/imgs/room.jpg')] bg-cover">
-	<Navbar />
+<main class="w-full h-full">
+	<Navbar session={data.session} />
 
 	<slot />
 </main>

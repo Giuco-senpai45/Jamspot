@@ -4,6 +4,8 @@ import { prisma } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const getUserProfile = async (userId: string) => {
+		console.log(`ASTA E USERID ${userId}`);
+		
 		try {
 			const profile = await prisma.profiles.findUnique({
 				where: {
@@ -19,8 +21,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	if (!locals.session?.user.id) {
-		return;
 		throw error(500, 'Something went wrong.')
+		// return;
 	}
 
 	return {

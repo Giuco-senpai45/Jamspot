@@ -2,18 +2,23 @@
 	import type { PageData } from './$types';
 	import logo from '$lib/imgs/js.svg';
 	import Coldstart from '$lib/components/coldstart/Coldstart.svelte';
+	import type { Song } from '$lib/types';
+	import Overview from '$lib/components/overview/Overview.svelte';
 
 	export let data: PageData;
+
+	let finishedColdStart: boolean = false;
+	let recommendedSongsList: Song[] = [];
 </script>
 
+<main class="h-full bg-[url('$lib/imgs/room.jpg')] bg-cover">
 
-<main class="h-screen">
 	{#if data.session}
 		{#if data.profile}
-			{#if data.profile.isNew}
-				<Coldstart />
+			{#if data.profile.isNew && !finishedColdStart}
+				<Coldstart bind:recommendedSongs={recommendedSongsList} bind:finished={finishedColdStart} />
 			{:else}
-				<p>You're not new here</p>
+				<Overview recommendedSongsList={recommendedSongsList} />
 			{/if}
 		{:else}
 			<progress class="progress w-56"></progress>
@@ -52,4 +57,5 @@
 	.login-form-btn {
 		@apply btn btn-sm sm:btn-sm md:btn-md lg:btn-lg border-transparent hover:border-transparent bg-[#877d70] rounded-xl text-[#14212f] hover:bg-[#bbad9b] hover:text-[#34567b] font-semibold tracking-wide font-serif shadow-lg;
 	}
+
 </style>

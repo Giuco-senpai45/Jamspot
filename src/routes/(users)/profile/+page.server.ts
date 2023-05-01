@@ -10,6 +10,8 @@ import { formData } from 'zod-form-data';
 export const load: PageServerLoad = ({ locals }) => {
 
     const getUserProfile = async (userId: string) => {
+        console.log(`USER ID PROFIL ${userId}`);
+        
         try {
             const profile = await prisma.profiles.findUnique({
                 where: {
@@ -49,27 +51,18 @@ export const actions: Actions = {
 		}
 
 		try {
-            const pictureId = uuidv4();
-            const newPicLink : string = locals.session?.user.id + "/" + pictureId;
-
             const updatedProfile = await prisma.profiles.update({
                 where: {
                     id: locals.session?.user.id,
 				},
 				data: {
                     username: formData.username,
-                    avatarUrl: pictureId,
+                    avatarUrl: formData.avatarUrl,
                 },
 			})
-
-            const file = formData.avatarUrl as File;
-            
-			const { data, error } = await supabaseClient.storage
-            .from('profiles')
-            .upload(newPicLink, file)
+    
 
             console.log(updatedProfile);
-            console.log(data);
 		} catch (err) {
 			throw error(500, 'Something went wrong on our end.')
 		}
