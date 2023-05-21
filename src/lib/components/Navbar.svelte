@@ -10,6 +10,7 @@
 	const CDN_URL = "https://vocnbaffhtwjwconvhzm.supabase.co/storage/v1/object/public/profiles/"
 	let oldProfilePic = getOldProfilePic();
 	let profilePicName: string;
+	
 	async function getOldProfilePic() {
 		if(session) {
 			const { data: userPictures , error: err } =  await supabaseClient.storage
@@ -69,7 +70,9 @@
 							<li>
 								<a class="justify-between" href="/profile"> Profile </a>
 							</li>
-							<li><a href="/settings">Settings</a></li>
+							<li>
+								<a href="/settings">Settings</a>
+							</li>
 							<li class="">
 								<form action="/logout" method="POST" use:enhance={submitLogout}>
 									<button class="uppercase" type="submit">Logout</button>

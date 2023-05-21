@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_API_BASE } from '$env/static/public';
 	import type { Song } from '$lib/types';
 	import Loading from './Loading.svelte';
 
@@ -22,7 +23,7 @@
 
 		const bodyJson = JSON.stringify({ name: search });
 
-		const data = await fetch('http://127.0.0.1:8000/tracks', {
+		const data = await fetch(`${PUBLIC_API_BASE}/tracks`, {
 			// mode: 'no-cors',
 			headers: {
 				Accept: 'application/json',

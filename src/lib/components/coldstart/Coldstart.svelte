@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { PUBLIC_API_BASE } from '$env/static/public';
 	import type { Song } from '$lib/types';
-	import LikedSongs from './LikedSongs.svelte';
+	import LikedColdStartSongs from './LikedColdStartSongs.svelte';
 	import Radio from './Radio.svelte';
 
 	export let userId: string;
@@ -60,10 +61,6 @@
 	export let finished: boolean = false;
 
 	async function finishProfile() {
-		// let trackTitles : string[] = []
-		// userLikedSongs.forEach(song => {
-		// 	trackTitles.push(song.title)
-		// })
 		const bodyJson = JSON.stringify({
 			user_id: userId,
 			music: userLikedSongs,
@@ -71,9 +68,8 @@
 			mood,
 			emotion
 		});
-		console.log(bodyJson);
 
-		const data = await fetch('http://127.0.0.1:8000/recommend', {
+		const data = await fetch(`${PUBLIC_API_BASE}/recommend`, {
 			method: "post",
 			headers: {
 				'Accept': 'application/json',
@@ -112,7 +108,7 @@
 		</ul>
 		<div class="self-center grid grid-cols-1">
 			{#if currStep === 1}
-				<LikedSongs bind:likedSongs={userLikedSongs} />
+				<LikedColdStartSongs bind:likedSongs={userLikedSongs} />
 			{:else}
 				<div class="bg-black bg-opacity-80 justify-center p-5">
 					<Radio
