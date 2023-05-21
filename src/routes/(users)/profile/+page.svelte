@@ -40,10 +40,7 @@
 
 	const pictureChanged = async () => {
 		const file = inputProfilePic.files![0];
-		console.log("ASTA E FISI");
-		console.log(file);
 		
-			
 		if (file) {
 			const reader = new FileReader();
 			reader.addEventListener('load', function () {
@@ -83,7 +80,7 @@
 </script>
 
 
-<main in:fade="{{duration: 1200}}" class="bg-gradient-to-l from-sky-500">
+<main in:fade="{{duration: 1200}}" class="h-screen flex flex-col justify-center bg-gradient-to-l from-sky-500">
 	<h1 class="profile-text">Your current profile</h1>
 	<div class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
 		<form action="?/updateProfile" method="POST" class="profile-form xl:col-span-2">

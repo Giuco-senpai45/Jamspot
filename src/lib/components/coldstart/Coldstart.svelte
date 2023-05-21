@@ -3,6 +3,7 @@
 	import LikedSongs from './LikedSongs.svelte';
 	import Radio from './Radio.svelte';
 
+	export let userId: string;
 	let userLikedSongs: Song[] = [];
 	let currStep = 1;
 
@@ -56,15 +57,16 @@
 	}
 
 	export let recommendedSongs: Song[] = [];
-	export let finished = false;
+	export let finished: boolean = false;
 
 	async function finishProfile() {
-		let trackTitles : string[] = []
-		userLikedSongs.forEach(song => {
-			trackTitles.push(song.title)
-		})
+		// let trackTitles : string[] = []
+		// userLikedSongs.forEach(song => {
+		// 	trackTitles.push(song.title)
+		// })
 		const bodyJson = JSON.stringify({
-			music: trackTitles,
+			user_id: userId,
+			music: userLikedSongs,
 			speed,
 			mood,
 			emotion
@@ -138,8 +140,8 @@
 				{#if currStep === 1}
 					<button class="btn btn-wide" on:click={nextStep}>Next step</button>
 				{:else}
-					<button class="btn btn-wide" on:click={prevStep}>Prev step</button>
-					<button class="btn btn-wide" on:click={finishProfile}>Finish profile</button>
+					<button class="btn btn-wide" on:click={prevStep}>Prev step</button>					
+					<button type="submit" class="btn btn-wide" on:click={finishProfile}>Finish profile</button>
 				{/if}
 			</div>
 		</div>
@@ -156,6 +158,6 @@
 	}
 
 	.coldstart-step {
-		@apply text-slate-800 text-xl font-bold;
+		@apply text-slate-400 text-xl font-bold;
 	}
 </style>

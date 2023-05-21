@@ -9,38 +9,51 @@
 
 	let finishedColdStart: boolean = false;
 	let recommendedSongsList: Song[] = [];
+	let submitFinishedColdStartBtn: HTMLButtonElement;
+
+	$: {
+		if(finishedColdStart)
+			submitFinishedColdStartBtn.click();
+	}
 </script>
 
-<main class="h-full bg-[url('$lib/imgs/room.jpg')] bg-cover">
+<!-- bg-[url('$lib/imgs/room.jpg')] -->
 
 	{#if data.session}
-		{#if data.profile}
-			{#if data.profile.isNew && !finishedColdStart}
-				<Coldstart bind:recommendedSongs={recommendedSongsList} bind:finished={finishedColdStart} />
+		<main class="h-full bg-cover bg-[url('$lib/imgs/guitar.jpg')]">
+			{#if data.profile}
+				{#if data.profile.isNew && !finishedColdStart}
+					<form action="?/finishedColdStart" method="POST" on:submit|preventDefault>
+						<Coldstart bind:recommendedSongs={recommendedSongsList} bind:finished={finishedColdStart} userId={data.profile.id} />
+						<input class="hidden" name="finishedPreferences" value={finishedColdStart} />
+						<button type="submit" class="hidden" bind:this={submitFinishedColdStartBtn}></button>
+					</form>
+				{:else}
+					<Overview userId={data.profile.id} recommendedSongsList={recommendedSongsList} />
+				{/if}
 			{:else}
-				<Overview recommendedSongsList={recommendedSongsList} />
+				<progress class="progress w-56"></progress>
 			{/if}
-		{:else}
-			<progress class="progress w-56"></progress>
-		{/if}
+		</main>
 	{:else}
+	<main class="h-full bg-cover bg-[url('$lib/imgs/room.jpg')]">
 		<div class="flex justify-center text-center py-10">
 			<img src={logo} class="w-40" alt="JamSpot logo" />
 			<p class="tracking-wide text-6xl text-center text-[#14212f]">JamSpot</p>
 		</div>
-		<main class="wrapper">
+		<main class="wrapper ">
 			<div class="flex flex-col w-full md:flex-row">
 				<div class="or-card">
 					<a class="login-form-btn" href="/login">Login</a>
 				</div>
-				<div class="divider lg:divider-horizontal font-semibold text-black tracking-widest">OR</div>
+				<div class="divider lg:divider-horizontal font-semibold text-[#14212f] tracking-widest">OR</div>
 				<div class="or-card">
 					<a class="login-form-btn" href="/register">Register</a>
 				</div>
 			</div>
 		</main>
+	</main>
 	{/if}
-</main>
 
 <style>
 	.wrapper {

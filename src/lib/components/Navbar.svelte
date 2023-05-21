@@ -41,7 +41,7 @@
 <div class="navbar sticky z-50 top-0 shadow-lg h-20 bg-black bg-opacity-50">
 	<div class="flex-1">
 		<a
-			class="btn h-14 btn-ghost normal-case text-2xl text-center text-[#877d70] tracking-wide font-serif"
+			class="btn h-14 btn-ghost normal-case text-2xl text-center text-[#fe6865] tracking-wide font-serif"
 			href="/"
 		>
 				<span>	

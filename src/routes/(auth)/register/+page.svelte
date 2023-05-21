@@ -1,18 +1,20 @@
 <script lang="ts">
 </script>
 
-<main class="wrapper">
-	<h1 class="register-page-title">Register</h1>
-	<form action="?/register" method="POST" class="card-body">
-		<input name="email" type="email" placeholder="Email" class="register-input" required />
-		<input name="password" type="password" placeholder="Password" class="register-input" />
-		<button class="register-form-btn">Register</button>
-	</form>
+<main class="bg-cover bg-[url('$lib/imgs/room.jpg')]">
+	<main class="wrapper">
+		<h1 class="register-page-title">Register</h1>
+		<form action="?/register" method="POST" class="card-body">
+			<input name="email" type="email" placeholder="Email" class="register-input" required />
+			<input name="password" type="password" placeholder="Password" class="register-input" />
+			<button class="register-form-btn">Register</button>
+		</form>
+	</main>
 </main>
 
 <style>
 	.wrapper {
-		@apply backdrop-blur-sm rounded-2xl shadow-2xl mx-20 my-20 md:mx-40 lg:mx-64 py-16
+		@apply h-screen backdrop-blur-sm rounded-2xl shadow-2xl mx-20 md:mx-40 lg:mx-64 py-16
 	}
 	.register-wrapper {
 		@apply sm:px-20 md:px-72 px-96 xl:mx-40 py-20;

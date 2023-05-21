@@ -18,11 +18,38 @@ model followers {
 }
 
 model profiles {
-  username                                 String?     @default("")
-  avatarUrl                                String?     @default("")
-  isNew                                    Boolean?    @default(false)
-  created_at                               DateTime?   @default(now()) @db.Timestamptz(6)
-  id                                       String      @id(map: "Profile_pkey") @db.Uuid
-  followers_followers_followerIdToprofiles followers[] @relation("followers_followerIdToprofiles")
-  followers_followers_profileIdToprofiles  followers[] @relation("followers_profileIdToprofiles")
+  username                                 String?             @default("")
+  avatarUrl                                String?             @default("")
+  isNew                                    Boolean?            @default(true)
+  created_at                               DateTime?           @default(now()) @db.Timestamptz(6)
+  id                                       String              @id(map: "Profile_pkey") @db.Uuid
+  followers_followers_followerIdToprofiles followers[]         @relation("followers_followerIdToprofiles")
+  followers_followers_profileIdToprofiles  followers[]         @relation("followers_profileIdToprofiles")
+  user_liked_tracks                        user_liked_tracks[]
+  user_preferences                         user_preferences?
+}
+
+model tracks {
+  id                String              @id
+  artist            String?
+  title             String?
+  albumUrl          String?
+  user_liked_tracks user_liked_tracks[]
+}
+
+model user_liked_tracks {
+  user_id  String   @db.Uuid
+  track_id String
+  tracks   tracks   @relation(fields: [track_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profiles profiles @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, track_id], map: "user_liked_songs_pkey")
+}
+
+model user_preferences {
+  id       String   @id @db.Uuid
+  mood     Int?     @db.SmallInt
+  speed    Int?     @db.SmallInt
+  emotion  Int?     @db.SmallInt
+  profiles profiles @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }

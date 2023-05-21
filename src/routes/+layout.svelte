@@ -25,7 +25,7 @@
 	<title>JamSpot</title>
 </svelte:head>
 
-<main class="w-full h-full">
+<main class="h-screen">
 	<Navbar session={data.session} />
 
 	<slot />

@@ -40,6 +40,8 @@
 				return res.json();
 			})
 			.catch((e) => {
+				console.log(e);
+				
 				alert(`Something went wrong ${e}`);
 			});
 		tracks = data?.tracks || [];
@@ -59,7 +61,7 @@
 	}
 </script>
 
-<p class="text-2xl text-slate-800 font-extrabold text-left justify-start">
+<p class="text-2xl text-slate-400 font-extrabold text-left justify-start">
 	Choose your favorite songs:
 </p>
 <div class="input-group justify-center">
@@ -88,7 +90,7 @@
 	</button>
 
 	{#if searching}
-		<Loading />
+		<Loading width="2em" height="2em" />
 	{/if}
 </div>
 <ul class="h-36 mt-5 overflow-auto scrollbar">
@@ -99,11 +101,13 @@
 	{/each}
 </ul>
 <div class="flex-col justify-center">
-	<p class="text-3xl font-extrabold text-slate-800 text-center self-center">Liked songs:</p>
-	<ul class="justify-center mt-5 flex overflow-auto">
+	<p class="text-3xl font-extrabold text-slate-400 text-center self-center">Liked songs:</p>
+	<ul class="justify-center space-x-2 mt-5 flex overflow-auto">
 		{#each likedSongs as likedTrack}
 			<li class="li-song">
-				{likedTrack.artist} : {likedTrack.title}
+				{likedTrack.title}
+				<br/>
+				{likedTrack.artist}
 			</li>
 		{/each}
 	</ul>
