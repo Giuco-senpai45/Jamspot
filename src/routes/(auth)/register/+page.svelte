@@ -1,4 +1,14 @@
 <script lang="ts">
+	import Dialog from "$lib/components/Dialog.svelte";
+	import { redirect } from "@sveltejs/kit";
+
+	let dialog: HTMLDialogElement;
+
+	function finishedRegister() {
+		console.log("Finished register");
+		
+		redirect(303, '/');
+	}
 </script>
 
 <main class="bg-cover bg-[url('$lib/imgs/room.jpg')]">
@@ -7,8 +17,18 @@
 		<form action="?/register" method="POST" class="card-body">
 			<input name="email" type="email" placeholder="Email" class="register-input" required />
 			<input name="password" type="password" placeholder="Password" class="register-input" />
-			<button class="register-form-btn">Register</button>
+			<button class="register-form-btn" on:submit={()=>dialog.showModal()}>Register</button>
 		</form>
+		<Dialog bind:dialog on:close={finishedRegister}>
+			<form method="dialog">
+				<p class="text-xl">We've sent you a confirmation email.</p>
+				<br/>
+				<p class="text-xl">Please confirm your identity in order to authenticate.</p>
+				<div class="modal-action">
+					<button class="btn">Close</button>
+				</div>
+			</form>
+		</Dialog>
 	</main>
 </main>
 

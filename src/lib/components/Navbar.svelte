@@ -21,12 +21,14 @@
 				sortBy: { column: "name", order: "desc"}
 			})
 			
-			if(userPictures != null) {
-				profilePicName = userPictures[0].name;
-				return  userPictures[0];
+			if(userPictures) {
+				if(userPictures.length > 0) {
+					profilePicName = userPictures[0].name;
+					return  userPictures[0];
+				}
 			}
 		}
-		return null;
+		return "";
 	}
 
 	const submitLogout: SubmitFunction = async ({ cancel }) => {
@@ -71,7 +73,7 @@
 								<a class="justify-between" href="/profile"> Profile </a>
 							</li>
 							<li>
-								<a href="/settings">Settings</a>
+								<a href="/preferences">Preferences</a>
 							</li>
 							<li class="">
 								<form action="/logout" method="POST" use:enhance={submitLogout}>

@@ -113,7 +113,7 @@
 				<label for="username" class="profile-label">Username</label>
 				<input name="username" type="text" placeholder={data.profile?.username} value={data.profile?.username} class="profile-input" />
 			</div> 
-			<input type="checkbox" checked={true} bind:this={confirmedPictureChanged} required> 
+			<input type="checkbox" class="hidden" checked={true} bind:this={confirmedPictureChanged} required> 
 			<button type="submit" class="btn rounded-full w-max self-center">Update profile</button>
 		</form>
 		<div class="hidden md:flex justify-start">

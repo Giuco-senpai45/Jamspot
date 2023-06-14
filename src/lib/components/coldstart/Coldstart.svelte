@@ -5,6 +5,15 @@
 	import Radio from './Radio.svelte';
 
 	export let userId: string;
+	export let recommendedSongs: Song[] = [];
+	export let finished: boolean = false;
+
+	const HEADERS_JSON = {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Headers': '*'
+	}
+
 	let userLikedSongs: Song[] = [];
 	let currStep = 1;
 
@@ -57,9 +66,6 @@
 		currStep -= 1;
 	}
 
-	export let recommendedSongs: Song[] = [];
-	export let finished: boolean = false;
-
 	async function finishProfile() {
 		const bodyJson = JSON.stringify({
 			user_id: userId,
@@ -71,13 +77,10 @@
 
 		const data = await fetch(`${PUBLIC_API_BASE}/recommend`, {
 			method: "post",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 			body: bodyJson
 		})
-			.then((res) => {
+			.then((res) => { 
 					if (!res.ok) {
 					console.log('NU E OK RES');
 					alert('Something went wrong');

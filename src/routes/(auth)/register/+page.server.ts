@@ -9,6 +9,8 @@ export const actions: Actions = {
 			email: body.email as string,
 			password: body.password as string
 		});
+		console.log(data);
+		
 
 
 		if (err) {

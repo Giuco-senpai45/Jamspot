@@ -6,6 +6,7 @@
 	import liked_logo from '$lib/imgs/toucan_heart.svg';
 	import not_liked_logo from '$lib/imgs/toucan_question.svg';
 
+	export let username: string = "";
 	export let recommendedSongsList: Song[] = [];
 	export let userId: string;
 
@@ -14,18 +15,20 @@
 	let searching_liked: boolean = true;
 	let simpleFilteringActive: boolean = true;
 
+	const HEADERS_JSON = {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Headers': '*'
+	}
+
 	async function fetch_accurate_recommendations() {
 		const data = await fetch(`${PUBLIC_API_BASE}/recommend?user_id=${userId}`, {
 			method: "get",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 		})
 			.then((res) => {
 					if (!res.ok) {
-					console.log('NU E OK RES');
-					alert('Something went wrong');
+					alert('Something went wrong accurate recommendations');
 					return;
 				}
 				return res.json();
@@ -40,14 +43,11 @@
 	async function fetch_current_likes() {
 		const data = await fetch(`${PUBLIC_API_BASE}/liked_tracks?user_id=${userId}`, {
 			method: "get",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 		})
 			.then((res) => {
 					if (!res.ok) {
-					alert('Something went wrong');
+					alert('Something went wrong fetching current liked songs');
 					return;
 				}
 				return res.json();
@@ -63,15 +63,11 @@
 	async function fetch_exploring_recommendations() {
 		const data = await fetch(`${PUBLIC_API_BASE}/recommend-explore?user_id=${userId}`, {
 			method: "get",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 		})
 			.then((res) => {
 					if (!res.ok) {
-					console.log('NU E OK RES');
-					alert('Something went wrong');
+					alert('Something went wrong exploring recommendations');
 					return;
 				}
 				return res.json();
@@ -105,14 +101,10 @@
 			user_id: userId,
 			song
 		});
-		console.log(bodyJson);
 		
 		const data = await fetch(`${PUBLIC_API_BASE}/songs`, {
 			method: "post",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 			body: bodyJson
 		})
 			.then((res) => {
@@ -153,6 +145,8 @@
 </script>
 
 <div class="h-full overflow-clip mx-10 sm:mx-20">
+	<p class="text-3xl flex justify-center p-5 text-[#cfb288] font-bold">Welcome {username}</p>
+	<!-- Choose recommendation algorithm -->
 	<div class="grid grid-cols-2">
 		<div class="flex flex-col">
 			<p class="recommended-playlist-text">Recommended songs</p>
@@ -171,7 +165,8 @@
 			<p class="text-lg lg:text-2xl text-[#907c5f] font-bold text-center justify-start drop-shadow-xl">Double click a song to like or unlike it</p>
 		</div>
 	</div>
-	<div class="h-full sm:grid sm:grid-cols-2">
+	<!-- Recommended songs -->
+	<div class="h-full pb-10 sm:grid sm:grid-cols-2">
 		{#if searching}
 			<div class="flex justify-center">
 				<Loading width="5em" height="5em" />

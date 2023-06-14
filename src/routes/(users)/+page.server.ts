@@ -46,7 +46,10 @@ export const actions: Actions = {
 			})
 		}
 
+		console.log("GATA DE VALIDAT NEW USER");
 		try {
+			console.log("SUBMIT NEW USER FINISHED COLDSTART");
+			
 			const noLongerNewUser = formData.finishedPreferences ? false : true;
             const updatedProfile = await prisma.profiles.update({
                 where: {
@@ -56,6 +59,8 @@ export const actions: Actions = {
                     isNew: noLongerNewUser,
                 },
 			})
+			console.log(updatedProfile);
+			
 		} catch (err) {
 			throw error(500, 'Something went wrong on our end.')
 		}

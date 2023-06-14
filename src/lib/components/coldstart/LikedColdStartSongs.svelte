@@ -9,6 +9,12 @@
 	let searching = false;
 	export let likedSongs: Song[] = [];
 
+	const HEADERS_JSON = {
+		'Accept': 'application/json',
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Headers': '*'
+	}
+
 	function handle_search() {
 		searching = true;
 		if (timeout) clearTimeout(timeout);
@@ -25,16 +31,12 @@
 
 		const data = await fetch(`${PUBLIC_API_BASE}/tracks`, {
 			// mode: 'no-cors',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
+			headers: HEADERS_JSON,
 			method: 'POST',
 			body: bodyJson
 		})
 			.then((res) => {
 				if (!res.ok) {
-					console.log('NU E OK RES');
 					alert('Something went wrong');
 					return;
 				}
